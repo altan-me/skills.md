@@ -67,6 +67,20 @@ hermes plugins install DietrichGebert/ponytail --enable
 Fallback for any agent: copy the repo's `AGENTS.md` into the project, or add
 `skills/ponytail/SKILL.md` as a skill.
 
+## Subagents (OpenCode)
+
+OpenCode has no separate `subagents.json`: subagents live under `agents` in
+`opencode.jsonc` (or one Markdown file each in `.opencode/agents/`). The example
+covers the pipeline — plan, break down, implement, review, test, clean up.
+
+The full example is in [`example_opencode.jsonc`](example_opencode.jsonc) — merge
+its `agents` block into your `opencode.jsonc`.
+
+Run it by describing the work to `orchestrator`, which is the default agent here.
+For manual runs the order is `planner` → `task-breaker` → `implementer` once per
+task → `reviewer` → `tester` → `cleanup`. Keep review and tests as gates: a task
+is not done until both pass.
+
 ## Idea & asset sources
 
 ### [21st.dev](https://21st.dev)

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "orchestrator",
+  "agents": {
+    "orchestrator": {
+      "mode": "primary",
+      "description": "Runs the plan, implement, review, test, cleanup pipeline through subagents",
+      "system": "You coordinate; you never implement. Call planner first, show the result to the user, then task-breaker. For each task in order, call implementer, then reviewer, then tester. If review or tests fail, send the findings back to implementer before moving on. After the last task call cleanup. Report each stage and stop on unresolved failures.",
+      "steps": 60,
+      "permissions": [
+        { "action": "subagent", "resource": "*", "effect": "deny" },
+        { "action": "subagent", "resource": "planner", "effect": "allow" },
+        { "action": "subagent", "resource": "task-breaker", "effect": "allow" },
+        { "action": "subagent", "resource": "implementer", "effect": "allow" },
+        { "action": "subagent", "resource": "reviewer", "effect": "allow" },
+        { "action": "subagent", "resource": "tester", "effect": "allow" },
+        { "action": "subagent", "resource": "cleanup", "effect": "allow" },
+        { "action": "edit", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "*", "effect": "deny" }
+      ]
+    },
+    "planner": {
+      "mode": "subagent",
+      "description": "Plans goal, scope and constraints before any code is written",
+      "system": "Write the goal in one paragraph, then in-scope, out-of-scope, constraints, risks and open questions. No code.",
+      "permissions": [{ "action": "edit", "resource": "*", "effect": "deny" }]
+    },
+    "task-breaker": {
+      "mode": "subagent",
+      "description": "Splits the approved plan into ordered, verifiable tasks",
+      "system": "Return ordered tasks. For each: areas touched, definition of done, the test that proves it. Mark dependencies. No code.",
+      "permissions": [{ "action": "edit", "resource": "*", "effect": "deny" }]
+    },
+    "implementer": {
+      "mode": "subagent",
+      "description": "Implements one task at a time, smallest working change",
+      "system": "Implement only the assigned task. Reuse existing code and patterns. Run the task's test. Report files changed, test result, and anything skipped.",
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "allow" },
+        { "action": "shell", "resource": "*", "effect": "allow" }
+      ]
+    },
+    "reviewer": {
+      "mode": "subagent",
+      "description": "Reviews the change for bugs, security and regressions. Read-only.",
+      "system": "Review the diff and the code it touches. List findings by severity with file:line, what breaks, and how to fix. Change nothing.",
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "git diff*", "effect": "allow" },
+        { "action": "shell", "resource": "git status*", "effect": "allow" }
+      ]
+    },
+    "tester": {
+      "mode": "subagent",
+      "description": "Runs the automated tests and adds missing ones",
+      "system": "Run the project's automated tests. If changed logic has no test, add one. Report the command, pass/fail, and uncovered paths. Do not change product code.",
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "deny" },
+        { "action": "edit", "resource": "**/*.test.*", "effect": "allow" },
+        { "action": "edit", "resource": "**/*.spec.*", "effect": "allow" },
+        { "action": "edit", "resource": "**/tests/**", "effect": "allow" },
+        { "action": "shell", "resource": "*", "effect": "allow" }
+      ]
+    },
+    "cleanup": {
+      "mode": "subagent",
+      "description": "Removes leftovers, formats, then runs a ponytail review if installed",
+      "system": "Remove dead code and debug artifacts from this change, run formatter and linter, then load the ponytail-review skill and fix what it flags. Report what was removed.",
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "allow" },
+        { "action": "shell", "resource": "*", "effect": "allow" },
+        { "action": "skill", "resource": "ponytail*", "effect": "allow" }
+      ]
+    }
+  }
+}
