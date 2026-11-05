@@ -22,6 +22,26 @@ uipro init --ai opencode        # or: uipro init --ai universal --global
 
 Use it just by asking for UI work, e.g. "build a landing page for my SaaS product".
 
+## [Impeccable](https://github.com/pbakaus/impeccable) ([impeccable.style](https://impeccable.style))
+
+Design vocabulary for coding agents. Instead of "make it pop" you name a move —
+`polish`, `bolder`, `quieter`, `typeset`, `audit` — and it applies a playbook to
+one target. Best on interfaces that already exist.
+
+- 24 commands: steer, review, finish, live iteration, plan
+- `critique` scores UX and ranks fixes; `audit` ranks accessibility/perf issues P0–P3
+- `live` mode picks elements in the browser and hot-swaps variants
+- Detector with 62 deterministic rules for "AI slop" (no LLM, no API key)
+- Writes `PRODUCT.md` / `DESIGN.md` so later changes stay on-brand
+
+Install:
+
+```bash
+npx impeccable install
+```
+
+Reload the agent, then run `/impeccable init` once per project.
+
 ## [Ponytail](https://github.com/DietrichGebert/ponytail)
 
 A "lazy senior dev" mode. It pushes the agent to reuse what already exists
@@ -46,6 +66,21 @@ hermes plugins install DietrichGebert/ponytail --enable
 
 Fallback for any agent: copy the repo's `AGENTS.md` into the project, or add
 `skills/ponytail/SKILL.md` as a skill.
+
+## Idea & asset sources
+
+### [21st.dev](https://21st.dev)
+
+Community registry of UI built by design engineers — not a skill, a place to grab
+starting points instead of letting the model invent the average hero section.
+
+- 12,000+ React + Tailwind components, full templates, shadcn themes, shaders
+- Code is copied into your repo via the shadcn CLI, so you own and can edit it
+- "Copy prompt" hands a component to any agent; MCP/CLI also available
+- Free to browse, 2 free component copies per day
+
+Use it when a design feels generic: pick a real reference, then let the skills
+above adapt it to your tokens.
 
 ## Notes
 
