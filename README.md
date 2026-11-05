@@ -82,8 +82,23 @@ starting points instead of letting the model invent the average hero section.
 Use it when a design feels generic: pick a real reference, then let the skills
 above adapt it to your tokens.
 
+## Prompt ideas
+
+### Directing style
+
+```
+Aesthetic: [family] - [5-8 vocabulary terms]
+Reference: [screenshot] - match feel, not content
+Intent: [what this should feel like and why]
+Guardrails: always [constants]. Never [bans].
+```
+
+Name the direction before the task, then let the agent build against it. The
+reference sets tone only; guardrails keep tokens, accessibility and brand
+constants from drifting.
+
 ## Notes
 
-- Both are MIT licensed and open source.
+- Licenses: UI UX Pro Max and Ponytail are MIT; Impeccable is Apache 2.0.
 - UI UX Pro Max has a premium tier (brand identity, logos, slides, icons); the
   open-source version covers the UI/UX part.
