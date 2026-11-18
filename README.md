@@ -67,6 +67,41 @@ hermes plugins install DietrichGebert/ponytail --enable
 Fallback for any agent: copy the repo's `AGENTS.md` into the project, or add
 `skills/ponytail/SKILL.md` as a skill.
 
+## [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance)
+
+Web platform guidance from the Chrome, Edge, Firefox and MDN teams. It steers the
+agent away from legacy patterns (bloated JavaScript, heavy polyfills) toward native
+browser APIs like the Popover API, `<dialog>`, View Transitions and container queries.
+
+- 262 modern web features and 204 real-world use cases, each with its own guide
+- Offline search, no API key: the agent pulls only the guide it needs
+- `legacy-scan` finds outdated patterns in an existing codebase
+- Packs: `modern-web-guidance` (web platform) and `chrome-extensions` (Manifest V3)
+
+### Quick start for OpenCode
+
+1. Install the skill from your project folder:
+
+   ```bash
+   npx modern-web-guidance@latest install
+   ```
+
+   Select OpenCode when the wizard asks which agent to install for. Or skip the
+   wizard: `npx skills add GoogleChrome/modern-web-guidance`.
+
+2. Restart OpenCode so it picks up the skill.
+
+3. Ask for web work as usual, e.g. "add a confirm dialog with a fading backdrop".
+   The agent runs the guidance CLI on its own. To check the CLI works:
+
+   ```bash
+   npx modern-web-guidance@latest search "animate a dialog modal backdrop"
+   npx modern-web-guidance@latest retrieve "animate-to-from-top-layer"
+   ```
+
+Update later with `npx modern-web-guidance@latest update`. To opt out of anonymous
+usage telemetry, set `DISABLE_TELEMETRY=1` in your shell profile.
+
 ## Subagents (OpenCode)
 
 OpenCode has no separate `subagents.json`: subagents live under `agents` in
@@ -113,6 +148,6 @@ constants from drifting.
 
 ## Notes
 
-- Licenses: UI UX Pro Max and Ponytail are MIT; Impeccable is Apache 2.0.
+- Licenses: UI UX Pro Max and Ponytail are MIT; Impeccable and Modern Web Guidance are Apache 2.0 (Modern Web Guidance guide content is CC-BY 4.0).
 - UI UX Pro Max has a premium tier (brand identity, logos, slides, icons); the
   open-source version covers the UI/UX part.
