@@ -102,6 +102,27 @@ browser APIs like the Popover API, `<dialog>`, View Transitions and container qu
 Update later with `npx modern-web-guidance@latest update`. To opt out of anonymous
 usage telemetry, set `DISABLE_TELEMETRY=1` in your shell profile.
 
+## [Browse](https://opencode.ai/product/browse) (browser addon for OpenCode)
+
+An MCP server plus a Chromium extension that lets agents drive your real browser —
+your tabs, logins and extensions. Agent tabs open in the background in collapsed
+groups, and the agent can read pages, click, type, screenshot and record tabs.
+When a login, 2FA or payment needs you, it hands the tab back; click Continue
+and it resumes.
+
+- Works with Chrome, Edge, Brave, Arc, Helium, Vivaldi, Opera and Chromium
+- "Lend a tab": click the toolbar button to hand an agent a tab you have open
+- Captures screenshots, tab recordings and network traffic
+- Works with any MCP client (OpenCode, Claude Code, Cursor, Codex, Zed, …)
+- Optional allowlist keeps an agent's tab on the sites you name
+
+Install the extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/mfnicocicmmlkpjnaffgihfjhdgjkdjg) — it walks you through the rest. CLI only (rarely needed):
+
+```bash
+curl -fsSL https://opencode.ai/browse/install | bash
+# or: npm install -g @opencode/browse && browse install
+```
+
 ## Subagents (OpenCode)
 
 OpenCode has no separate `subagents.json`: subagents live under `agents` in
