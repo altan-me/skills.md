@@ -123,6 +123,26 @@ curl -fsSL https://opencode.ai/browse/install | bash
 # or: npm install -g @opencode/browse && browse install
 ```
 
+## [Playwright MCP](https://github.com/microsoft/playwright-mcp)
+
+Playwright MCP lets OpenCode automate a separate browser using Playwright. It
+requires [Node.js 20 or newer](https://nodejs.org/).
+
+From your project directory, add the server:
+
+```bash
+opencode mcp add playwright -- npx -y @playwright/mcp@latest
+```
+
+Check that it connected:
+
+```bash
+opencode mcp list
+```
+
+Restart OpenCode if it was already running. The server launches on demand and
+downloads via `npx` the first time.
+
 ## Subagents (OpenCode)
 
 OpenCode has no separate `subagents.json`: subagents live under `agents` in
